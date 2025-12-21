@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Book</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <a href="#"><img src="Frame 1.png" alt="" style="max-height: 95px;"></a>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search recipe...">
+        <button id="searchBtn"><img src="search.png" alt="" style="max-width: 16px; margin-top: 3px;"></button>
+    </div>
+    <div></div>
+</header>
+
+<div class="layout">
+
+    <aside class="categories">
+        <h3>Category</h3>
+
+        <!-- Чекбокс для управления открытием списка категорий на мобильных -->
+        <input type="checkbox" id="categoriesToggle" class="categories-toggle">
+        <label for="categoriesToggle" class="toggle-label">☰ Open</label>
+
+        <ul id="tagList"></ul>
+    </aside>
+
+    <main class="content">
+        <div id="recipes" class="recipes"></div>
+    </main>
+</div>
+
+<!-- Модалка -->
+<div id="modal" class="modal hidden">
+    <div class="modal-content">
+        <span id="closeModal">&times;</span>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

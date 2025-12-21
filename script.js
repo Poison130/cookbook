@@ -1,0 +1,140 @@
+const API = 'https://dummyjson.com/recipes';
+
+const recipesContainer = document.getElementById('recipes');
+const searchBtn = document.getElementById('searchBtn');
+const searchInput = document.getElementById('searchInput');
+const tagList = document.getElementById('tagList');
+
+const modal = document.getElementById('modal');
+const modalBody = document.getElementById('modalBody');
+const closeModal = document.getElementById('closeModal');
+
+const DEFAULT_LIMIT = 0;
+
+// ===== Load Recipes =====
+async function loadRecipes(url = `${API}?limit=${DEFAULT_LIMIT}`) {
+    const res = await fetch(url);
+    const data = await res.json();
+    renderRecipes(data.recipes || [data]);
+}
+
+// ===== Render Cards =====
+function renderRecipes(recipes) {
+    recipesContainer.innerHTML = '';
+
+    recipes.forEach(recipe => {
+        const card = document.createElement('div');
+        card.className = 'recipe-card';
+
+        const ingredientsPreview =
+            recipe.ingredients.slice(0, 3).join(', ') +
+            (recipe.ingredients.length > 3 ? '…' : '');
+
+        card.innerHTML = `
+            <img src="${recipe.image}" alt="${recipe.name}">
+            <div class="info">
+                <h3>${recipe.name}</h3>
+                <div class="recipe-row">
+                    <span>💪 ${recipe.difficulty}</span>
+                    <span>⏱ ${recipe.prepTimeMinutes + recipe.cookTimeMinutes} мин</span>
+                </div>
+                <div class="recipe-country">
+                    🌍 ${recipe.cuisine}
+                </div>
+                <div class="recipe-ingredients">
+                    ${ingredientsPreview}
+                </div>
+                <div class="recipe-rating">
+                    ⭐ ${recipe.rating}
+                </div>
+            </div>
+        `;
+
+        card.onclick = () => openRecipe(recipe.id);
+        recipesContainer.appendChild(card);
+    });
+}
+
+// ===== Open Recipe =====
+async function openRecipe(id) {
+    const res = await fetch(`${API}/${id}`);
+    const recipe = await res.json();
+
+    modalBody.innerHTML = `
+        <h2>${recipe.name}</h2>
+        <img src="${recipe.image}" style="width:100%; border-radius:14px; margin-bottom:10px;">
+        <div class="recipe-details" style="
+            margin-bottom: 15px; 
+            font-size: 14px; 
+            color: #555;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        ">
+            <p style="margin: 0;">🌍 <strong>Country:</strong> ${recipe.cuisine}</p>
+            <p style="margin: 0;">💪 <strong>Difficulty:</strong> ${recipe.difficulty}</p>
+            <p style="margin: 0;">⏱ <strong>Time:</strong> ${recipe.prepTimeMinutes + recipe.cookTimeMinutes} мин</p>
+            <p style="margin: 0;">⭐ <strong>Rating:</strong> ${recipe.rating}</p>
+        </div>
+        <h3>Ингредиенты</h3>
+        <ul>${recipe.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+        <h3>Инструкции</h3>
+        <ol>${recipe.instructions.map(s => `<li>${s}</li>`).join('')}</ol>
+    `;
+
+    modal.classList.remove('hidden');
+}
+
+// ===== Search =====
+searchBtn.onclick = () => {
+    const q = searchInput.value.trim();
+    loadRecipes(
+        q
+            ? `${API}/search?q=${q}&limit=${DEFAULT_LIMIT}`
+            : `${API}?limit=${DEFAULT_LIMIT}`
+    );
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+// ===== Categories =====
+async function loadTags() {
+    const allLi = document.createElement('li');
+    allLi.textContent = 'All';
+    allLi.classList.add('active');
+
+    allLi.onclick = () => {
+        document.querySelectorAll('.categories li').forEach(t => t.classList.remove('active'));
+        allLi.classList.add('active');
+        loadRecipes(`${API}?limit=${DEFAULT_LIMIT}`);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    tagList.appendChild(allLi);
+
+    const res = await fetch(`${API}/tags`);
+    const tags = await res.json();
+
+    tags.forEach(tag => {
+        const li = document.createElement('li');
+        li.textContent = tag;
+
+        li.onclick = () => {
+            document.querySelectorAll('.categories li').forEach(t => t.classList.remove('active'));
+            li.classList.add('active');
+            loadRecipes(`${API}/tag/${tag}?limit=${DEFAULT_LIMIT}`);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        tagList.appendChild(li);
+    });
+}
+
+// ===== Close Modal =====
+closeModal.onclick = () => modal.classList.add('hidden');
+modal.onclick = e => e.target === modal && modal.classList.add('hidden');
+
+// ===== Init =====
+loadRecipes();
+loadTags();

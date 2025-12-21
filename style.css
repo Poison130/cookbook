@@ -1,0 +1,315 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #333;
+    background: #f6f7fb url("Frame 3 (3).png") center/105% 110% no-repeat fixed;
+    background-size: 2600px 1450px; 
+    min-height: 100vh;
+}
+
+/* ===== Header ===== */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(255, 134, 5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 20px 30px;
+    max-height: 100px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 15px 20px rgba(0,0,0,0.15);
+    border-radius: 0 0 20px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ===== Layout ===== */
+.layout {
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 30px;
+}
+
+/* ===== Sidebar (Categories) ===== */
+.categories {
+    background: #fffbf3;
+    border-radius: 18px;
+    padding: 20px;
+    height: fit-content;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.185);
+}
+
+.categories h3 {
+    margin: 0 0 10px;
+}
+
+.categories ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.categories li {
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.categories li:hover {
+    background: #f0f0f0;
+}
+
+.categories li.active {
+    background: #ff8605;
+    color: white;
+}
+
+/* ===== Toggle button for mobile ===== */
+.categories-toggle {
+    display: none;
+}
+
+.toggle-label {
+    display: none;
+    cursor: pointer;
+    background-color: #ff8605;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    user-select: none;
+}
+
+/* ===== Content ===== */
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ===== Search Bar ===== */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 999px;
+    padding: 6px 10px;
+    max-width: 1200px;
+    min-width: 40%;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 12px 16px;
+    font-size: 15px;
+    outline: none;
+}
+
+.search-bar button {
+    border: none;
+    background: #ff7043;
+    color: white;
+    border-radius: 999px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* ===== Recipes Grid ===== */
+.recipes {
+    width: 100%;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+/* ===== Recipe Card ===== */
+.recipe-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.recipe-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+
+.recipe-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.recipe-card .info {
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    background-color: #fffbf3;
+}
+
+.recipe-card h3 {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.recipe-row {
+    font-size: 13px;
+    color: #666;
+    display: flex;
+    gap: 12px;
+}
+
+.recipe-ingredients {
+    font-size: 13px;
+    color: #999;
+    margin-top: 2px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.recipe-country {
+    font-size: 13px;
+    color: #888;
+}
+
+.recipe-rating {
+    margin-top: auto;
+    font-size: 13px;
+    color: #ff7043;
+    font-weight: 600;
+    padding-top: 10px;
+}
+
+/* ===== Modal ===== */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    max-width: 700px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.hidden {
+    display: none;
+}
+
+#closeModal {
+    float: right;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* ===== Adaptive ===== */
+@media (max-width: 1250px) {
+    .recipes {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1050px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .recipes {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Показываем кнопку для открытия категорий */
+    .toggle-label {
+        display: block;
+    }
+
+    /* Скрываем список категорий по умолчанию */
+    .categories ul {
+        display: none;
+    }
+
+    /* Если чекбокс включен, показываем список */
+    .categories-toggle:checked + .toggle-label + ul {
+        display: block;
+    }
+
+    .search-bar{
+        gap: 220px;
+    }
+}
+
+@media (max-width: 850px) {
+    .search-bar {
+        gap: 120px;
+    }
+}
+
+@media (max-width: 750px) {
+    .recipes {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .search-bar {
+        gap: 0px;
+    }
+}
+
+@media (max-width: 620px){
+    .header{
+            padding: 5px 8px;
+            flex-direction: column;
+            max-height: 20%;
+            height: 200px;
+    }
+
+    .modal-content{
+        margin-top: 230px;
+    }
+
+}
+
+@media (max-width: 400px){
+    .recipes {
+        grid-template-columns: repeat(1, 1fr) !important;
+    }
+
+}
