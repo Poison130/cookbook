@@ -57,28 +57,29 @@ async function openRecipe(id) {
     const res = await fetch(`${API}/${id}`);
     const recipe = await res.json();
 
-    modalBody.innerHTML = `
+        modalBody.innerHTML = `
         <h2>${recipe.name}</h2>
-        <img src="${recipe.image}" style="width:100%; border-radius:14px; margin-bottom:10px;">
-        <div class="recipe-details" style="
-            margin-bottom: 15px; 
-            font-size: 14px; 
-            color: #555;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
-        ">
-            <p style="margin: 0;">🌍 <strong>Country:</strong> ${recipe.cuisine}</p>
-            <p style="margin: 0;">💪 <strong>Difficulty:</strong> ${recipe.difficulty}</p>
-            <p style="margin: 0;">⏱ <strong>Time:</strong> ${recipe.prepTimeMinutes + recipe.cookTimeMinutes} мин</p>
-            <p style="margin: 0;">⭐ <strong>Rating:</strong> ${recipe.rating}</p>
+
+        <img src="${recipe.image}" class="modal-image">
+
+        <div class="recipe-badges">
+            <div class="badge badge-country">🌍 ${recipe.cuisine}</div>
+            <div class="badge badge-difficulty">💪 ${recipe.difficulty}</div>
+            <div class="badge badge-time">⏱ ${recipe.prepTimeMinutes + recipe.cookTimeMinutes} мин</div>
+            <div class="badge badge-rating">⭐ ${recipe.rating}</div>
         </div>
-        <h3>Ingredients</h3>
-        <ul>${recipe.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
-        <h3>Instructions</h3>
-        <ol>${recipe.instructions.map(s => `<li>${s}</li>`).join('')}</ol>
+
+        <div class="section-box">
+            <h3>Ingredients</h3>
+            <ul>${recipe.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+        </div>
+
+        <div class="section-box">
+            <h3>Instructions</h3>
+            <ol>${recipe.instructions.map(s => `<li>${s}</li>`).join('')}</ol>
+        </div>
     `;
+
 
     modal.classList.remove('hidden');
 }
