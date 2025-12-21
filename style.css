@@ -11,7 +11,6 @@ body {
     min-height: 100vh;
 }
 
-/* ===== Header ===== */
 .header {
     position: sticky;
     top: 0;
@@ -30,7 +29,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* ===== Layout ===== */
 .layout {
     max-width: 1400px;
     margin: 30px auto;
@@ -40,7 +38,6 @@ body {
     gap: 30px;
 }
 
-/* ===== Sidebar (Categories) ===== */
 .categories {
     background: #fffbf3;
     border-radius: 18px;
@@ -76,7 +73,6 @@ body {
     color: white;
 }
 
-/* ===== Toggle button for mobile ===== */
 .categories-toggle {
     display: none;
 }
@@ -93,14 +89,12 @@ body {
     user-select: none;
 }
 
-/* ===== Content ===== */
 .content {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-/* ===== Search Bar ===== */
 .search-bar {
     display: flex;
     align-items: center;
@@ -131,7 +125,6 @@ body {
     font-size: 14px;
 }
 
-/* ===== Recipes Grid ===== */
 .recipes {
     width: 100%;
     max-width: 1200px;
@@ -140,7 +133,6 @@ body {
     gap: 16px;
 }
 
-/* ===== Recipe Card ===== */
 .recipe-card {
     background: white;
     border-radius: 20px;
@@ -211,7 +203,6 @@ body {
     padding-top: 10px;
 }
 
-/* ===== Modal ===== */
 .modal {
     position: fixed;
     inset: 0;
@@ -241,7 +232,6 @@ body {
     cursor: pointer;
 }
 
-/* ===== Adaptive ===== */
 @media (max-width: 1250px) {
     .recipes {
         grid-template-columns: repeat(4, 1fr);
@@ -257,17 +247,14 @@ body {
         grid-template-columns: repeat(3, 1fr);
     }
 
-    /* Показываем кнопку для открытия категорий */
     .toggle-label {
         display: block;
     }
 
-    /* Скрываем список категорий по умолчанию */
     .categories ul {
         display: none;
     }
 
-    /* Если чекбокс включен, показываем список */
     .categories-toggle:checked + .toggle-label + ul {
         display: block;
     }

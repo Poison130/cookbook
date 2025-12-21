@@ -11,14 +11,12 @@ const closeModal = document.getElementById('closeModal');
 
 const DEFAULT_LIMIT = 0;
 
-// ===== Load Recipes =====
 async function loadRecipes(url = `${API}?limit=${DEFAULT_LIMIT}`) {
     const res = await fetch(url);
     const data = await res.json();
     renderRecipes(data.recipes || [data]);
 }
 
-// ===== Render Cards =====
 function renderRecipes(recipes) {
     recipesContainer.innerHTML = '';
 
@@ -55,7 +53,6 @@ function renderRecipes(recipes) {
     });
 }
 
-// ===== Open Recipe =====
 async function openRecipe(id) {
     const res = await fetch(`${API}/${id}`);
     const recipe = await res.json();
@@ -77,16 +74,15 @@ async function openRecipe(id) {
             <p style="margin: 0;">⏱ <strong>Time:</strong> ${recipe.prepTimeMinutes + recipe.cookTimeMinutes} мин</p>
             <p style="margin: 0;">⭐ <strong>Rating:</strong> ${recipe.rating}</p>
         </div>
-        <h3>Ингредиенты</h3>
+        <h3>Ingredients</h3>
         <ul>${recipe.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
-        <h3>Инструкции</h3>
+        <h3>Instructions</h3>
         <ol>${recipe.instructions.map(s => `<li>${s}</li>`).join('')}</ol>
     `;
 
     modal.classList.remove('hidden');
 }
 
-// ===== Search =====
 searchBtn.onclick = () => {
     const q = searchInput.value.trim();
     loadRecipes(
@@ -98,7 +94,6 @@ searchBtn.onclick = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-// ===== Categories =====
 async function loadTags() {
     const allLi = document.createElement('li');
     allLi.textContent = 'All';
@@ -131,10 +126,8 @@ async function loadTags() {
     });
 }
 
-// ===== Close Modal =====
 closeModal.onclick = () => modal.classList.add('hidden');
 modal.onclick = e => e.target === modal && modal.classList.add('hidden');
 
-// ===== Init =====
 loadRecipes();
 loadTags();
