@@ -347,8 +347,8 @@ body {
     .badge {
         display: flex;
         flex-direction: column;
-        justify-content: center; /* центр по вертикали */
-        align-items: center;     /* центр по горизонтали */
+        justify-content: center; 
+        align-items: center;
         gap: 4px;
         padding: 10px 6px;
         font-size: 12px;
